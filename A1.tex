@@ -13,6 +13,7 @@
 \usepackage{hyperref}
 \usepackage{menukeys}
 \usepackage{booktabs}
+% \setlength{\parskip}{0.4em}
 
 \title{Assignment 1: Solutions \\ {IS711: Learning and Planning in Intelligent Systems}}
 \author{SHI Jieke \\ jkshi.2022@phdcs.smu.edu.sg}
@@ -26,7 +27,7 @@
 \subsection{Answer to Question \#1.1}
 
 We can formulate the problem with the following definitions:
-\begin{itemize}[leftmargin=*]
+\begin{itemize}[itemsep=0.1em, leftmargin=*]
 	\item \textbf{State space}:
 		\begin{itemize}
 			\item the top block on the table
@@ -61,7 +62,10 @@ Sofa: 20$ 1hr of cutting, 2hrs of assembly, 1 hr of finishing
 Chair: 30$ 2 hrs of cutting, 1 hr of assembly, 1 hr of finishing
 
 The calculation is as follows:
-\begin{itemize}
+\begin{itemize}[leftmargin=*]
+	\setlength{\itemsep}{0pt}
+	\setlength{\parsep}{0pt}
+	\setlength{\parskip}{0pt}
 	\item \textbf{Variables}: X1 : manufacture one unit of sofa  X2: manufacture one unit of chair
 	\item \textbf{Constraints}: 
 	\item \textbf{Objective}:
@@ -102,6 +106,11 @@ As expected value is much bigger than 0, and win probability is bigger than 0.5,
 \section{Question \#6}
 
 \subsection{Answer to Question \#6.a}
+
+There are 4 states, S = (L1, L2, L3, L4).
+Actions, A = (“wait to pick up a custom”, “MoveToL1”, “MoveToL1”, “MoveToL2”, “MoveToL3”, “MoveToL4”)
+Reward function's value are shows as below table
+
 
 \subsection{Answer to Question \#6.b}
 
