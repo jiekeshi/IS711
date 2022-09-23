@@ -1,0 +1,108 @@
+
+% Include LaTeX packages
+\documentclass[conference]{styles/acmsiggraph}
+\usepackage{fullpage}
+\usepackage{enumitem}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{etoolbox}
+\usepackage{verbatim}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{fancyvrb}
+\usepackage{hyperref}
+\usepackage{menukeys}
+\usepackage{booktabs}
+
+\title{Assignment 1: Solutions \\ {IS711: Learning and Planning in Intelligent Systems}}
+\author{SHI Jieke \\ jkshi.2022@phdcs.smu.edu.sg}
+\pdfauthor{SHI Jieke}
+
+\begin{document}
+\maketitle
+\vspace{-0.15cm}
+\section{Question \#1}
+
+\subsection{Answer to Question \#1.1}
+
+We can formulate the problem with the following definitions:
+\begin{itemize}[leftmargin=*]
+	\item \textbf{State space}:
+		\begin{itemize}
+			\item the top block on the table
+		\end{itemize} 
+	\item \textbf{Initial state}:
+		\begin{itemize}
+			\item the top block on the table is the block A
+		\end{itemize}
+	\item \textbf{Goal state}:
+		\begin{itemize}
+			\item the top block on the table is the block C
+		\end{itemize}
+	\item \textbf{Possible Operators}:
+	\item \textbf{Path cost}:
+\end{itemize}
+
+\subsection{Answer to Question \#1.2}
+In the initial state con0, we can do the operation moveTo(2,1), moveToTable(2), moveTo(1,2), 
+moveToTable(1), and get different configurations respectively, con1, con2, con3, con4, based 
+on the formula f(n) = g(n) + h(n), we can get the estimated the cost of each configuration and 
+
+the first four nodes with the search tree are shown below, clearly indicate: 
+the order of expansion of each node; 
+the action corresponding to each edge of the tree; 
+the state, 
+f(n) value that sum of heuristic value with real cost.
+
+\section{Question \#2}
+
+Cutting:40hrs, Assembly:42hrs, Finishing: 25hrs
+Sofa: 20$ 1hr of cutting, 2hrs of assembly, 1 hr of finishing  
+Chair: 30$ 2 hrs of cutting, 1 hr of assembly, 1 hr of finishing
+
+The calculation is as follows:
+\begin{itemize}
+	\item \textbf{Variables}: X1 : manufacture one unit of sofa  X2: manufacture one unit of chair
+	\item \textbf{Constraints}: 
+	\item \textbf{Objective}:
+	\item \textbf{Solution}:
+\end{itemize}
+
+
+\section{Question \#3}
+
+Let's use(X,Y) represent the value that the first dice is X, and the second is Y, total 36 possibilities of the results for (X,Y) of rolling two fair six-sided dice at one time.
+
+P(win \$1 in first round) = P(1,1) + P(2,3) + P(3,2) + P(1,4) + P(4,1) + P(1,6) + P(6,1) + P(3,4) + P(4,3) +P(2,5) +P(5,2) + P(4,6) + P(6,4)+ P(5,5) = 7/18
+
+P(lose \$1 in first round) = P(1,5) + P(5,1) + P(3,3) +P(2,4)+ P(4,2) +P(6,6) = 1/6
+
+P(play one more round) = 1- 7/18 - 1/6 =4/9
+
+P(win \$2 in second round | play one more round) = P(2,2) + P(1,3) + P(3,1) + P(1,5) + P(5,1) + P(3,3)+P(4,2)+P(2,4)+P(6,1) +P(6,1)+ P(3,4) + P(4,3) +P(2,5) +P(5,2) + P(2,6) + P(6,2) +P (3,5) + P(5,3) + P(4,4) = 19/36
+
+P(lose \$1 in second round | play one more round) = 1- 17/36 = 5/9 
+Expected value of game: (7/18)*1 +(1/6)*(-1) + (4/9)*( 19/36)*2 + (4/9)*(17/36)*(-1)=13/27> 0
+P(winning) = P(win \$1 in first round) + P(play one more round)* P(win \$2 in second round | play one more round) = 101/162
+The probability of winning is 101/162
+As expected value is much bigger than 0, and win probability is bigger than 0.5, I will play this game.
+
+
+
+\section{Question \#4}
+
+\subsection{Answer to Question \#4.1}
+
+\subsection{Answer to Question \#4.2}
+
+\subsection{Answer to Question \#4.3}
+
+\section{Question \#5}
+
+\section{Question \#6}
+
+\subsection{Answer to Question \#6.a}
+
+\subsection{Answer to Question \#6.b}
+
+\end{document}
