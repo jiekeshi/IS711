@@ -111,10 +111,10 @@ def main():
             state.value_old = state.value
         # Print
         i += 1
-        print(states["L1"].value)
-        print(states["L2"].value)
-        print(states["L3"].value)
-        print(states["L4"].value)
+        print("state values L1", states["L1"].value)
+        print("state values L2", states["L2"].value)
+        print("state values L3", states["L3"].value)
+        print("state values L4", states["L4"].value)
         print("Iteration: {0}".format(i) + "\n")
         # Convergence check
         is_converged = all([state.is_converged for state in states.values()])
