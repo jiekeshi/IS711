@@ -32,30 +32,23 @@ The state space is the set of all possible configurations.
 	\setlength{\itemsep}{0pt}
 	\setlength{\parsep}{0pt}
 	\setlength{\parskip}{0pt}
-	\item \textbf{State representation}: A state can be represented by two piles. Each pile is represented by a stack of blocks denoted as color+label. For example, the Configuration 1 of this question is in the state of \{[\textit{Green A, Grey B, Orange A}], [\textit{Yellow B, Green C}]\}. There are five blocks available. The first block of each pile is the top and the last block is on the table.
-	\item \textbf{State space}: The state space is the set of all possible configurations of two piles.
+	\item \textbf{State representation}: A state can be represented by one or several piles. Each pile is represented by a stack of blocks denoted as color+label. For example, the Configuration 1 of this question is in the state of \{[\textit{Green A, Grey B, Orange A}], [\textit{Yellow B, Green C}]\}. There are five blocks available. The first block of each pile is the top and the last block is on the table.
+	\item \textbf{State space}: The state space is the set of all possible configurations of piles.
 	\item \textbf{Initial state}: \{[\textit{Green A, Grey B, Orange A}], [\textit{Yellow B, Green C}]\}.
-	\item \textbf{Goal state}: \{[\textit{Green C, Grey B, Yellow B, Orange A, Green A}], []\}.
-	\item \textbf{Possible Operators}: denoting $x$ and $y$ as two blocks, the possible operators are:
+	\item \textbf{Goal state}: \{[\textit{Green C, Grey B, Yellow B, Orange A, Green A}]\}.
+	\item \textbf{Possible Operators}: denoting $x$ and $y$ as two blocks at the top of two piles, the possible operators are:
 	\begin{itemize}
-		\item \textit{Move(x, y)}: move a block from the top of a pile to the top of another pile.
-		\item \textit{MoveToTable(x)}: move a block from the top of a pile to the table.
+		\item \textit{Move(x, y)}: move the block $x$ to atop $y$.
+		\item \textit{MoveToTable(x)}: move the block $x$ to the table.
 	\end{itemize}
-	\item \textbf{Path cost}: The cost of each call to operator \textit{Move(x, y)} is 1. The cost of each call to operator \textit{MoveToTable(x)} is determined by color, namely, Orange block costs 2, Gray block costs 3, Yellow block costs 1, Green block costs 4. The path cost is the sum of the costs of all operators.
+	\item \textbf{Path cost}: The cost of each call to operator \textit{Move(x, y)} is 1. The cost of each call to operator \textit{MoveToTable(x)} is determined by color, namely, Orange block costs 2, Gray block costs 3, Yellow block costs 1, Green block costs 4. The path cost is the sum of the costs of all calls to operators.
 \end{itemize}
 
 \subsection{Answer to Question \#1.2}
-In the initial state con0, we can do the operation moveTo(2,1), moveToTable(2), moveTo(1,2), 
-moveToTable(1), and get different configurations respectively, con1, con2, con3, con4, based 
-on the formula f(n) = g(n) + h(n), we can get the estimated the cost of each configuration and 
 
-The first four nodes in the search tree are shown in Figure~\ref{}.
+The heuristic function is $h(s) = \#blocks\_not\_in\_goal\_place (s)$, i.e., the number of blocks that do not arrive goal place in the state $s$. The heuristic function is admissible. When a block is not at the goal place, it costs at least 1 to call the operator \textit{Move} or more to call the \textit{MoveToTable}. Thus, for each state, $h(s)$ is always less than or equal to the actual cost to reach the goal state. 
 
-We could design a n as the amount of blocks that are not above the right block. 
-
-This heuristic value n is the number of blocks that are not above the right block. Because it always smaller or equal to the real cost, since when even one block still not in right place, it will take at least one operation to adjust its position. 
-
-Therefore, h(u) is equal or smaller than real cost. It is admissible.
+The first four nodes of the search tree are shown as Figure
 
 
 
