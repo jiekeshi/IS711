@@ -9,7 +9,7 @@ grid_padding = 10
 print_name_alias = True
 
 # MDP config
-grid_rows, grid_cols = 3, 4
+grid_rows, grid_cols = 2,2
 convergence_tol = 0.01
 discount_factor = 0.95
 
@@ -82,9 +82,9 @@ def main():
         for j in range(1, grid_cols+1):
             pos = (i,j)
             states[pos] = State(pos, is_absorb_state=False, reward=-0.025)
-    states[(3,4)] = State((3,4), is_absorb_state=True, reward=1, name_alias="Goal")   # End goal
-    states[(2,4)] = State((2,4), is_absorb_state=True, reward=-1, name_alias="Tiger")   # Tiger
-    states.pop((2,2))   # Wall
+    # states[(3,4)] = State((3,4), is_absorb_state=True, reward=1, name_alias="Goal")   # End goal
+    # states[(2,4)] = State((2,4), is_absorb_state=True, reward=-1, name_alias="Tiger")   # Tiger
+    # states.pop((2,2))   # Wall
 
     ### Create actions
     pos_deltas = {
