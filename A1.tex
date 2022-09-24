@@ -13,7 +13,10 @@
 \usepackage{hyperref}
 \usepackage{menukeys}
 \usepackage{booktabs}
+\usepackage{mathtools} % mathtools builds on and extends amsmath package
 % \setlength{\parskip}{0.4em}
+% \pagestyle{myheadings}
+% \pagenumbering{arabic}
 
 \title{Assignment 1: Solutions \\ {IS711: Learning and Planning in Intelligent Systems}}
 \author{SHI Jieke \\ jkshi.2022@phdcs.smu.edu.sg}
@@ -75,7 +78,7 @@ The calculation using linear programming is as follows:
 		\end{aligned}
 	\end{equation}
 	\item \textbf{Solution}: As shown in Figure~\ref{fig:2}, the optimal solution is $x_1 = 6$ and $x_2 = 5$. The minimum cost is $800 \times 6 + 600 \times 5 = 7800$.
-	\begin{figure}
+	\begin{figure}[!h]
 		\centering
 		\includegraphics[width=0.7\textwidth]{figures/q2.pdf}
 		\caption{Solution to Question \#2}
@@ -157,21 +160,136 @@ The winning probability is $0.517 > 0.5$, and the expected value is $0.279 > 0$,
 
 \subsection{Answer to Question \#4.1}
 
+Figure~\ref{fig:q4} shows the Bayes Network to identify fraudulent transactions.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/q4.pdf}
+	\caption{Bayes Network to Question \#4}
+	\label{fig:q4}
+\end{figure}
+
 \subsection{Answer to Question \#4.2}
 
+
+The prior probability that the current transaction is legitimate is 0.9938. The calculation is as follows:
+
+Abbreviations: $fraudulent \to fr, travel \to tr$
+\begin{equation}
+	\begin{aligned}
+		& P(fr=0)=\sum_{tr} P(fr=0|tr) = 0.08 \times 0.98 +0.92 \times 0.995=0.9938\\
+	\end{aligned}
+\end{equation}
+
+
+The probability that the current transaction is a legitimate one once it is not a foreign transaction and an internet purchase and the card holder purchased computer related accessories is 0.98726326. The calculation is as follows:
+
+Abbreviations: $fraudulent \to fr, travel \to tr, foreign\_purchase \to fp,internet\_purchase \to ip, \\ purchase\_computer \to pc, own\_computer \to oc$
+\begin{equation}
+	\begin{aligned}
+		& P(fr=0|fp=0, ip=1, pc=1) = \frac{P(fr=0, fp=0, ip=1, pc=1)}{P(fp=0, ip=1, pc=1)} \\
+		& = \frac{\sum_{oc} \sum_{tr} P(oc)P(tr)P(fr=0|tr)P(fp=0|fr=0,tr)P(ip=1|fr=0,oc)P(pc=1|oc)}{\sum_{oc} \sum_{tr} \sum_{fr} P(oc)P(tr)P(fr|tr)P(fp=0|fr,tr)P(ip=1|fr,oc)P(pc=1|oc)} \\
+		& = \frac{\sum_{oc} P(oc)P(ip=1|fr=0,oc)P(pc=1|oc) \sum_{tr} P(tr)P(fr=0|tr)P(fp=0|fr=0,tr)}{\splitfrac{\sum_{oc} \sum_{tr} P(oc)P(tr)P(fr=0|tr)P(fp=0|fr=0,tr)P(ip=1|fr=0,oc)P(pc=1|oc)}{+ \sum_{oc} \sum_{tr} P(oc)P(tr)P(fr=1|tr)P(fp=0|fr=1,tr)P(ip=1|fr=1,oc)P(pc=1|oc)}} \\
+		& = \frac{(0.01\times0.75+0.003\times0.25)\times(0.15\times0.75+0.009\times0.25)\times(0.08 \times 0.98 +0.92 \times 0.995)\times(0.1 \times 0.08+0.99\times0.92)}{\splitfrac{(0.08 \times 0.98 +0.92 \times 0.995)\times(0.1 \times 0.08+0.99\times0.92)\times(0.01\times0.75+0.003\times0.25)\times(0.15\times0.75+0.009\times0.25)}{+(0.02 \times0.08+0.92\times0.005)\times(0.1\times0.08+0.9\times0.92)\times(0.02\times0.75+0.015\times0.25)\times(0.15\times0.75+0.009\times0.25)} } \\
+		& = \frac{0.0008644236129}{0.0008755755916} = 0.98726326 \\
+	\end{aligned}
+\end{equation}
+
 \subsection{Answer to Question \#4.3}
+As her spouse confirms that she is currently traveling, i.e, $tr=1$, the probability that the current transaction is legitimate would reduce into 0.9556737589, i.e., the probability of a fraud increases a bit. The calculation is as follows:
+\begin{equation}
+	\begin{aligned}
+		& P(fr=0|fp=0, ip=1, pc=1, tr=1) = \frac{P(fr=0, fp=0, ip=1, pc=1, tr=1)}{P(fp=0, ip=1, pc=1, tr=1)} \\
+		& = \frac{\sum_{oc} P(oc)P(fr=0|tr=1)P(fp=0|fr=0,tr=1)P(ip=1|fr=0,oc)P(pc=1|oc)}{\sum_{oc} \sum_{fr} P(oc)P(fr|tr=1)P(fp=0|fr,tr=1)P(ip=1|fr,oc)P(pc=1|oc)} \\
+		& = \frac{0.98\times0.1\times(0.01\times0.75+0.003\times0.25)\times(0.15\times0.75+0.009\times0.25)}{\splitfrac{0.98\times0.1\times(0.01\times0.75+0.003\times0.25)\times(0.15\times0.75+0.009\times0.25)}{+0.02\times0.1\times(0.02\times0.75+0.015\times0.25)\times(0.15\times0.75+0.009\times0.25)}} \\
+		& =\frac{0.000092775375}{0.0000970785} = 0.9556737589 \\
+	\end{aligned}
+\end{equation}
 
 \section{Question \#5}
+The Most Probable Explanation for $G=g1$ and $L=l0$ is $I=i1$, $D=d0$, and $S=s1$. The probability is 0.01296. The calculation is as follows:
+\begin{itemize}
+	\setlength{\itemsep}{0pt}
+	\setlength{\parsep}{0pt}
+	\setlength{\parskip}{0pt}
+	\item \textbf{Forward pass:}
+\begin{equation}
+	\begin{aligned}
+		& \max_{D,I,S} P(I,D,G=g1,S,L=l0)\\
+		&= \max_{D,I,S} P(I)P(D)P(G=g1|I, D)P(S|I)P(L=l0|G=g1)\\
+		&= \max_{D,I} P(I)P(D)P(G=g1|I, D) \max_S P(S|I) * 0.1 \\
+		&= \max_{D,I} P(I)P(D)P(G=g1|I, D) \left[ \begin{array}{cc}
+			i0 & i1\\
+			0.95 & 0.8
+			\end{array}\right]* 0.1 \\
+		&= \max_{I} P(I) \max_D P(D)P(G=g1|I, D) \left[ \begin{array}{cc}
+		i0 & i1\\
+		0.95 & 0.8
+		\end{array}\right]* 0.1 \\
+		&= \max_{I} \left[ \begin{array}{cc}
+			i0 & i1\\
+			0.7 & 0.3
+			\end{array}\right] 
+			\left[ \begin{array}{cc}
+			i0 & i1\\
+			0.18 & 0.54
+			\end{array}\right] 
+			\left[ \begin{array}{cc}
+			i0 & i1\\
+			0.95 & 0.8
+			\end{array}\right]* 0.1 \\
+			&= 0.001296
+	\end{aligned}
+\end{equation}
+	\item \textbf{Backward pass:} $MPE = \arg\max_{D,I,S} P(I,D,G=g1,S,L=l0)$, i.e., $MPE = (i1, d0, s1)$.
+\end{itemize}
 
 \section{Question \#6}
 
 \subsection{Answer to Question \#6.a}
 
 There are 4 states, S = (L1, L2, L3, L4).
+
 Actions, A = (“wait to pick up a custom”, “MoveToL1”, “MoveToL1”, “MoveToL2”, “MoveToL3”, “MoveToL4”)
+
 Reward function's value are shows as below table
 
+\begin{table}[!h]
+	\centering
+	\label{tab:q6a}
+	\caption{}
+	\begin{tabular}{@{}ccccc@{}}
+	\toprule
+	State & Action   & State' & P(s'|s,a) & Reward(s,a,a') \\ \midrule
+	L1    & Pickup   & L1     & 0.2       & 0              \\
+	L1    & Pickup   & L2     & 0.16      & 9              \\
+	L1    & Pickup   & L3     & 0.24      & 13.5           \\
+	L1    & Pickup   & L4     & 0.4       & 10.75          \\
+	L1    & MoveToL2 & L2     & 1         & -1             \\
+	L1    & MoveToL3 & L3     & 1         & -1.5           \\
+	L1    & MoveToL4 & L4     & 1         & -1.25          \\
+	L2    & Pickup   & L2     & 0.6       & 0              \\
+	L2    & Pickup   & L1     & 0.32      & 10             \\
+	L2    & Pickup   & L3     & 0.08      & 7.25           \\
+	L2    & MoveToL1 & L1     & 1         & -1             \\
+	L2    & MoveToL3 & L3     & 1         & -0.75          \\
+	L3    & Pickup   & L3     & 0.6       & 0              \\
+	L3    & Pickup   & L1     & 0.2       & 11.5           \\
+	L3    & Pickup   & L4     & 0.2       & 8.2            \\
+	L3    & MoveToL1 & L1     & 1         & -1.5           \\
+	L3    & MoveToL4 & L4     & 1         & -0.8           \\
+	L4    & Pickup   & L4     & 0.5       & 0              \\
+	L4    & Pickup   & L1     & 0.3       & 9.75           \\
+	L4    & Pickup   & L2     & 0.2       & 4              \\
+	L4    & MoveToL1 & L1     & 1         & -1.25          \\
+	L4    & MoveToL2 & L2     & 1         & -1             \\ \bottomrule
+	\end{tabular}
+	\end{table}
 
 \subsection{Answer to Question \#6.b}
+
+The code is shown below, as well as available from this link.
+
+Figure \ref{fig:q6b} shows the two steps of value iteration in the solution.
 
 \end{document}
