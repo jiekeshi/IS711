@@ -87,13 +87,13 @@ The calculation using linear programming is as follows:
 \end{itemize}
 
 The drawbacks of linear programming are:
-\begin{itemize}
+\begin{itemize}[leftmargin=*]
 	\setlength{\itemsep}{0pt}
 	\setlength{\parsep}{0pt}
 	\setlength{\parskip}{0pt}
     \item To the above question, we can observe redundant computation in linear programming, i.e., if we remove the constraint $x_2\leq 8$, the answer will be unchanged. The other constraints are already sufficient conditions for the answer, but linear programming still needs to compute the redundant constraint $x_2\leq 8$.
     \item In the general cases of using linear programming, 
-    \begin{itemize}
+    \begin{itemize}[leftmargin=*]
         \item  When facing real-life problems, it is possible that the constraints may not be directly expressible as linear inequalities. Non-linear relations may be involved, e.g., $x_1^2 + x_2^2 \leq 100$;
         \item When solving linear programming, there is no guarantee of getting integer values. A non-integer valued solution will be meaningless to lots of problems.
         \item Linear programming can only handle single-objective problems, while real-life decision-making problems often have multiple objectives.
@@ -106,7 +106,7 @@ The drawbacks of linear programming are:
 I will play the game as the winning probability is $0.517 > 0.5$, and the expected value is $0.279 > 0$. The calculation is as follows:
 
 For each round of rolling the dice, there exist $6^3$ possible outcomes. Among them, 
-\begin{itemize}
+\begin{itemize}[leftmargin=*]
 	\setlength{\itemsep}{0pt}
 	\setlength{\parsep}{0pt}
 	\setlength{\parskip}{0pt}
@@ -182,7 +182,7 @@ Abbreviations: $fraudulent \to fr, travel \to tr$
 \end{equation}
 
 
-The probability that the current transaction is a legitimate one once it is not a foreign transaction and an internet purchase and the card holder purchased computer related accessories is 0.98726326. The calculation is as follows:
+The probability that the current transaction is a legitimate one is 0.98726326. The calculation is as follows:
 
 Abbreviations: $fraudulent \to fr, travel \to tr, foreign\_purchase \to fp,internet\_purchase \to ip, \\ purchase\_computer \to pc, own\_computer \to oc$
 \begin{equation}
@@ -208,7 +208,9 @@ As her spouse confirms that she is currently traveling, i.e, $tr=1$, the probabi
 
 \section{Question \#5}
 The Most Probable Explanation for $G=g1$ and $L=l0$ is $I=i1$, $D=d0$, and $S=s1$. The probability is 0.01296. The calculation is as follows:
-\begin{itemize}
+
+The joint distribution of the given Bayesian network is $P(I,D,G,S,L) = P(I) P(D) P(G|I,D) P(S|I) P(L|G)$.
+\begin{itemize}[leftmargin=*]
 	\setlength{\itemsep}{0pt}
 	\setlength{\parsep}{0pt}
 	\setlength{\parskip}{0pt}
@@ -217,15 +219,7 @@ The Most Probable Explanation for $G=g1$ and $L=l0$ is $I=i1$, $D=d0$, and $S=s1
 	\begin{aligned}
 		& \max_{D,I,S} P(I,D,G=g1,S,L=l0)\\
 		&= \max_{D,I,S} P(I)P(D)P(G=g1|I, D)P(S|I)P(L=l0|G=g1)\\
-		&= \max_{D,I} P(I)P(D)P(G=g1|I, D) \max_S P(S|I) * 0.1 \\
-		&= \max_{D,I} P(I)P(D)P(G=g1|I, D) \left[ \begin{array}{cc}
-			i0 & i1\\
-			0.95 & 0.8
-			\end{array}\right]* 0.1 \\
-		&= \max_{I} P(I) \max_D P(D)P(G=g1|I, D) \left[ \begin{array}{cc}
-		i0 & i1\\
-		0.95 & 0.8
-		\end{array}\right]* 0.1 \\
+		&= \max_{I} P(I) \max_D P(D)P(G=g1|I, D) \max_S P(S|I) * 0.1 \\
 		&= \max_{I} \left[ \begin{array}{cc}
 			i0 & i1\\
 			0.7 & 0.3
@@ -238,53 +232,61 @@ The Most Probable Explanation for $G=g1$ and $L=l0$ is $I=i1$, $D=d0$, and $S=s1
 			i0 & i1\\
 			0.95 & 0.8
 			\end{array}\right]* 0.1 \\
-			&= 0.001296
+		&= \max_{I} \left[ \begin{array}{cc}
+			i0 & i1\\
+			0.01197 & 0.01296
+			\end{array}\right] = 0.01296 \\
 	\end{aligned}
 \end{equation}
-	\item \textbf{Backward pass:} $MPE = \arg\max_{D,I,S} P(I,D,G=g1,S,L=l0)$, i.e., $MPE = (i1, d0, s1)$.
+	\item \textbf{Backward pass:} $MPE = \arg\max_{D,I,S} P(I,D,G=g1,S,L=l0) = (I=i1, D=d0, S=s1)$, i.e., the most probable explanation for $G=g1$ and $L=l0$ is $I=i1$, $D=d0$, and $S=s1$.
 \end{itemize}
 
 \section{Question \#6}
 
-\subsection{Answer to Question \#6.a}
-
-There are 4 states, S = (L1, L2, L3, L4).
-
-Actions, A = (“wait to pick up a custom”, “MoveToL1”, “MoveToL1”, “MoveToL2”, “MoveToL3”, “MoveToL4”)
-
-Reward function's value are shows as below table
-
 \begin{table}[!h]
 	\centering
-	\label{tab:q6a}
-	\caption{}
+	\caption{MDP model in Question \#6}
+	\label{tab:q6}
 	\begin{tabular}{@{}ccccc@{}}
 	\toprule
-	State & Action   & State' & P(s'|s,a) & Reward(s,a,a') \\ \midrule
-	L1    & Pickup   & L1     & 0.2       & 0              \\
-	L1    & Pickup   & L2     & 0.16      & 9              \\
-	L1    & Pickup   & L3     & 0.24      & 13.5           \\
-	L1    & Pickup   & L4     & 0.4       & 10.75          \\
+	State & Action   & State$^{\prime}$ & $P(s^{\prime}|s, a)$ & $Reward(s,a,s^{\prime})$ \\ \midrule
+	L1    & Pickup   & L1     & 0.7       & 0              \\
+	L1    & Pickup   & L2     & 0.15      & 19             \\
+	L1    & Pickup   & L3     & 0.09     & 8.5           \\
+	L1    & Pickup   & L4     & 0.06       & 7.75          \\
 	L1    & MoveToL2 & L2     & 1         & -1             \\
 	L1    & MoveToL3 & L3     & 1         & -1.5           \\
 	L1    & MoveToL4 & L4     & 1         & -1.25          \\
-	L2    & Pickup   & L2     & 0.6       & 0              \\
-	L2    & Pickup   & L1     & 0.32      & 10             \\
-	L2    & Pickup   & L3     & 0.08      & 7.25           \\
+	L2    & Pickup   & L2     & 0.5       & 0              \\
+	L2    & Pickup   & L1     & 0.2      & 9          \\
+	L2    & Pickup   & L3     & 0.3      & 6.25           \\
 	L2    & MoveToL1 & L1     & 1         & -1             \\
-	L2    & MoveToL3 & L3     & 1         & -0.75          \\
-	L3    & Pickup   & L3     & 0.6       & 0              \\
-	L3    & Pickup   & L1     & 0.2       & 11.5           \\
-	L3    & Pickup   & L4     & 0.2       & 8.2            \\
+	L2    & MoveToL3 & L3     & 1         & -1.75          \\
+	L3    & Pickup   & L3     & 0.4       & 0              \\
+	L3    & Pickup   & L1     & 0.18       & 13.5           \\
+	L3    & Pickup   & L4     & 0.42       & 7.8            \\
 	L3    & MoveToL1 & L1     & 1         & -1.5           \\
-	L3    & MoveToL4 & L4     & 1         & -0.8           \\
-	L4    & Pickup   & L4     & 0.5       & 0              \\
-	L4    & Pickup   & L1     & 0.3       & 9.75           \\
-	L4    & Pickup   & L2     & 0.2       & 4              \\
+	L3    & MoveToL4 & L4     & 1         & -1.2           \\
+	L4    & Pickup   & L4     & 0.2       & 0              \\
+	L4    & Pickup   & L1     & 0.32       & 9.75           \\
+	L4    & Pickup   & L2     & 0.48       & 4              \\
 	L4    & MoveToL1 & L1     & 1         & -1.25          \\
 	L4    & MoveToL2 & L2     & 1         & -1             \\ \bottomrule
 	\end{tabular}
 	\end{table}
+
+\subsection{Answer to Question \#6.a}
+The MDP model is defined as follows:
+\begin{itemize}[leftmargin=*]
+	\setlength{\itemsep}{0pt}
+	\setlength{\parsep}{0pt}
+	\setlength{\parskip}{0pt}
+	\item \textbf{States}: $S = \{L1, L2, L3, L4\}$.
+	\item \textbf{Actions}: $A = \{Pickup, MoveToL1, MoveToL2, MoveToL3, MoveToL4\}$
+	\item \textbf{transition probability matrices}: Shown in the fourth column of Table~\ref{tab:q6}.
+	\item \textbf{Reward function}: Shown in the fifth column of Table~\ref{tab:q6}.
+\end{itemize}
+
 
 \subsection{Answer to Question \#6.b}
 
