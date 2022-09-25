@@ -1,3 +1,4 @@
+from re import A
 from time import time
 
 
@@ -10,7 +11,7 @@ print_name_alias = True
 
 # MDP config
 grid_rows, grid_cols = 2,2
-convergence_tol = 10
+convergence_tol = 0.01
 discount_factor = 0.95
 
 
@@ -53,7 +54,7 @@ def main():
         Transition("L1", "L1", 0.7, 0),
         Transition("L1", "L2", 0.15, 19),
         Transition("L1", "L3", 0.09, 8.5),
-        Transition("L1", "L4", 0.96, 7.75),
+        Transition("L1", "L4", 0.06, 7.75),
         Transition("L2", "L2", 0.5, 0),
         Transition("L2", "L1", 0.2, 9),
         Transition("L2", "L3", 0.3, 6.25),
@@ -114,10 +115,10 @@ def main():
             state.value_old = state.value
         # Print
         i += 1
-        print("state values L1", states["L1"].value)
-        print("state values L2", states["L2"].value)
-        print("state values L3", states["L3"].value)
-        print("state values L4", states["L4"].value)
+        print("state values L1", states["L1"].value, "action L1", states["L1"].policy)
+        print("state values L2", states["L2"].value, "action L2", states["L1"].policy)
+        print("state values L3", states["L3"].value, "action L4", states["L1"].policy)
+        print("state values L4", states["L4"].value, "action L4", states["L1"].policy)
         print("Iteration: {0}".format(i) + "\n")
         # Convergence check
         is_converged = all([state.is_converged for state in states.values()])
