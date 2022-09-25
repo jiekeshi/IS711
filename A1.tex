@@ -58,7 +58,14 @@ The state space is the set of all possible configurations.
 
 The heuristic function is $h(s) = \#blocks\_not\_in\_goal\_place (s)$, i.e., the number of blocks that do not arrive goal place in the state $s$. The heuristic function is admissible. When a block is not at the goal place, it costs at least 1 to call the operator \textit{Move} or more to call the \textit{MoveToTable}. Thus, for each state, $h(s)$ is always less than or equal to the actual cost to reach the goal state. 
 
-The first four nodes of the search tree are shown as Figure
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=1\textwidth]{figures/q1.pdf}
+	\caption{The expansion of first 4 nodes.}
+	\label{fig:q1}
+\end{figure}
+
+The expansion of first 4 nodes of the search tree are shown as Figure~\ref{fig:q1}.
 
 
 
