@@ -4,13 +4,6 @@ from time import time
 
 ### Global Settings
 
-# Print formatting
-name_alias_max = 5
-grid_padding = 10
-print_name_alias = True
-
-# MDP config
-grid_rows, grid_cols = 2,2
 convergence_tol = 0.01
 discount_factor = 0.95
 
@@ -95,7 +88,7 @@ def main():
     print("Initial state values" + "\n")
 
     i = 0
-    for round in range(2):
+    while True:
         # Value iteration (estimate state values)
         for state in states.values():
             expected_utils = []
