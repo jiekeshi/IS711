@@ -7,7 +7,6 @@ from time import time
 convergence_tol = 0.01
 discount_factor = 0.95
 
-
 ### MDP classes
 
 class State:
