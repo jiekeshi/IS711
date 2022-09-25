@@ -11,12 +11,19 @@
 \usepackage[dvipsnames]{xcolor}
 \usepackage{fancyvrb}
 \usepackage{hyperref}
+\usepackage{url}
 \usepackage{menukeys}
 \usepackage{booktabs}
+\usepackage{listings}
 \usepackage{mathtools} % mathtools builds on and extends amsmath package
 % \setlength{\parskip}{0.4em}
 % \pagestyle{myheadings}
 % \pagenumbering{arabic}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,      
+    urlcolor=blue
+    }
 
 \title{Assignment 1: Solutions \\ {IS711: Learning and Planning in Intelligent Systems}}
 \author{SHI Jieke \\ jkshi.2022@phdcs.smu.edu.sg}
@@ -262,16 +269,19 @@ The joint distribution of the given Bayesian network is $P(I,D,G,S,L) = P(I) P(D
 	L2    & Pickup   & L3     & 0.3      & 6.25           \\
 	L2    & MoveToL1 & L1     & 1         & -1             \\
 	L2    & MoveToL3 & L3     & 1         & -1.75          \\
+	L2    & MoveToL4 & L4     & 1         & -1          \\
 	L3    & Pickup   & L3     & 0.4       & 0              \\
 	L3    & Pickup   & L1     & 0.18       & 13.5           \\
 	L3    & Pickup   & L4     & 0.42       & 7.8            \\
 	L3    & MoveToL1 & L1     & 1         & -1.5           \\
+	L3    & MoveToL2 & L2    & 1         & -1          \\
 	L3    & MoveToL4 & L4     & 1         & -1.2           \\
 	L4    & Pickup   & L4     & 0.2       & 0              \\
 	L4    & Pickup   & L1     & 0.32       & 9.75           \\
 	L4    & Pickup   & L2     & 0.48       & 4              \\
 	L4    & MoveToL1 & L1     & 1         & -1.25          \\
-	L4    & MoveToL2 & L2     & 1         & -1             \\ \bottomrule
+	L4    & MoveToL2 & L2     & 1         & -1             \\
+	L4    & MoveToL3 & L3     & 1         & -1             \\ \bottomrule
 	\end{tabular}
 	\end{table}
 
@@ -283,22 +293,69 @@ The MDP model is defined as follows:
 	\setlength{\parskip}{0pt}
 	\item \textbf{States}: $S = \{L1, L2, L3, L4\}$.
 	\item \textbf{Actions}: $A = \{Pickup, MoveToL1, MoveToL2, MoveToL3, MoveToL4\}$
-	\item \textbf{transition probability matrices}: Shown in the fourth column of Table~\ref{tab:q6}.
-	\item \textbf{Reward function}: Shown in the fifth column of Table~\ref{tab:q6}.
+	\item \textbf{transition probability matrices}: Shown in the 4$^{th}$ column of Table~\ref{tab:q6}.
+	\item \textbf{Reward function}: Shown in the 5$^{th}$ column of Table~\ref{tab:q6}.
 \end{itemize}
 
 
 \subsection{Answer to Question \#6.b}
+The core code of value iteration algorithm is shown in Listing~\ref{lst:q6}. The full version of the code is available via this link: \url{https://github.com/jiekeshi/IS711_code/blob/main/Value_iteration.py}.
 
-The code is available from this link:\url{https://github.com/jiekeshi/IS711_code/blob/main/Value_iteration.py}.
+Also, Figure \ref{fig:q6} shows the two steps of value iteration in the solution.
 
-Figure \ref{fig:q6} shows the two steps of value iteration in the solution.
+\begin{minipage}{\textwidth}
+\lstset{language=Python, basicstyle=\ttfamily\footnotesize,
+tabsize=2,
+numbers=left,
+numberstyle=\color{gray},
+backgroundcolor=\color{white},
+showspaces=false,               % show spaces adding particular underscores
+showstringspaces=false,       
+    frame=single,                   % adds a frame around the code
+    rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))                     % sets default tabsize to 2 spaces
+    breaklines=true,                % sets automatic line breaking
+    breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+    keywordstyle=\color{blue},          % keyword style
+	}
+\begin{lstlisting}[caption={Core Code of Value Iteration}, label={lst:q6}]
+while True:
+# Value iteration (estimate state values)
+for state in states.values():
+	expected_utils = []
+	for action_name, action in actions.items():
+		expected_util = 0
+		for t in action.transitions:
+			if t.start == state.pos:
+				state_new = states[t.end]
+				expected_util += t.transition_prob * (t.reward + (state_new.value_old * discount_factor))
+		expected_utils.append((expected_util, action_name))
+	best_action = max(expected_utils, key=lambda x: x[0])   # Action with max value / expected utility
+	state.value, state.policy = best_action
+
+# Update state values
+for state in states.values():
+	state.is_converged = abs(state.value_old - state.value) < convergence_tol
+	state.value_old = state.value
+# Print
+i += 1
+print("state values L1", states["L1"].value)
+print("state values L2", states["L2"].value)
+print("state values L3", states["L3"].value)
+print("state values L4", states["L4"].value)
+print("Iteration: {0}".format(i) + "\n")
+# Convergence check
+is_converged = all([state.is_converged for state in states.values()])
+if is_converged: break
+\end{lstlisting}
+\end{minipage}
+
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.8\textwidth]{figures/q6.png}
 	\caption{Two steps of value iteration}
 	\label{fig:q6}
 \end{figure}
+
 
 
 \end{document}

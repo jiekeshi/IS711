@@ -71,15 +71,18 @@ def main():
     ])
     actions["MoveToL2"] = Action(transitions=[
         Transition("L1", "L2", 1, -1),
+        Transition("L3", "L2", 1, -1),
         Transition("L4", "L2", 1, -1)
     ])
     actions["MoveToL3"] = Action(transitions=[
         Transition("L1", "L3", 1, -1.5),
-        Transition("L2", "L3", 1, -1.75)
+        Transition("L2", "L3", 1, -1.75),
+        Transition("L4", "L3", 1, -1)
     ])
     actions["MoveToL4"] = Action(transitions=[
         Transition("L1", "L4", 1, -1.25),
-        Transition("L3", "L4", 1, -1.2)
+        Transition("L3", "L4", 1, -1.2),
+        Transition("L2", "L4", 1, -1)
     ])
 
     ### Value Iteration
