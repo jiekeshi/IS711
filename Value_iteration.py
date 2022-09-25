@@ -1,8 +1,4 @@
-from re import A
 from time import time
-
-
-### Global Settings
 
 convergence_tol = 0.01
 discount_factor = 0.95
@@ -28,8 +24,6 @@ class Action:
     def __init__(self, transitions):
         self.transitions = transitions
 
-
-### Main
 
 def main():
     t0 = time()
